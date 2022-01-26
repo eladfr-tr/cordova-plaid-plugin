@@ -25,7 +25,7 @@
 
         <source-file src="src/android/PlaidWidget.java" target-dir="src/com/etoro/plaidwidget/" />
 
-        <framework src="src/android/plaid-widget.gradle" custom="true" type="gradleReference" />
+        <!-- <framework src="src/android/plaid-widget.gradle" custom="true" type="gradleReference" /> -->
     </platform>
 
     <!-- ios -->
