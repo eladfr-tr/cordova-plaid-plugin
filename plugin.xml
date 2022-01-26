@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.etoro.plaidWidget"
+    version="1.0.0">
+    <name>Plaid Widget</name>
+    <description>Plaid Widget Wrapper</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,device</keywords>
+    <issue>hey</issue>
+
+    <js-module src="www/plaidWidget.js" name="plaidWidget">
+        <clobbers target="cordova.plaidWidget" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="PlaidWidget" >
+                <param name="android-package" value="com.etoro.plaidwidget.PlaidWidget"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/PlaidWidget.java" target-dir="src/com/etoro/plaidwidget/" />
+
+        <framework src="src/android/plaid-widget.gradle" custom="true" type="gradleReference" />
+    </platform>
+
+    <!-- ios -->
+    <!-- <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="PlaidWidget">
+                <param name="ios-package" value="PlaidWidgetPlugin"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVDevice.h" />
+        <source-file src="src/ios/CDVDevice.m" />
+    </platform> -->
+
+</plugin>

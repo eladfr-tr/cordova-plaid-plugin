@@ -1,0 +1,10 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+dependencies {
+    implementation 'com.plaid.link:sdk-core:3.7.0'
+}
