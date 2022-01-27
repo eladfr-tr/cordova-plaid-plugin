@@ -3,6 +3,7 @@ package com.etoro.plaidwidget;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
@@ -49,18 +50,16 @@ public class PlaidWidget extends CordovaPlugin {
             // callbackContext.success(message);
             openLink(data, callbackContext);
             return true;
-
         } else {
-            
             return false;
-
         }
     }
 
     public void openLink(JSONArray data, CallbackContext callbackContext) throws JSONException {
-
+        Log.d("open link", "open link start");
         Context context= this.cordova.getActivity().getApplicationContext();
-
+        Log.d("open link context", context.toString());
+        cordova.setActivityResultCallback (this);
         String linkTokenFromServer = data.getString(0);
         LinkTokenConfiguration linkTokenConfiguration = new LinkTokenConfiguration.Builder()
             .token(linkTokenFromServer)
@@ -71,6 +70,7 @@ public class PlaidWidget extends CordovaPlugin {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d("plaid", "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if (!linkResultHandler.onActivityResult(requestCode, resultCode, data)) {
             // Not handled by the LinkResultHandler
