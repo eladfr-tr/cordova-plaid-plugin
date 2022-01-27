@@ -17,7 +17,7 @@ public class PlaidWidget extends CordovaPlugin {
 
     public CallbackContext _callbackContext;
 
-    private ActivityResultLauncher<LinkTokenConfiguration> linkAccountToPlaid = registerForActivityResult(new OpenPlaidLink(),
+    private ActivityResultLauncher<LinkTokenConfiguration> linkAccountToPlaid = cordova.getActivity().registerForActivityResult(new OpenPlaidLink(),
     result -> {
         if (result instanceof LinkSuccess) {
         /* handle LinkSuccess */
