@@ -46,7 +46,7 @@ public class PlaidWidget extends CordovaPlugin {
 
             String name = data.getString(0);
             String message = "Hello, " + name;
-            callbackContext.success(message);
+            // callbackContext.success(message);
             openLink(data, callbackContext);
             return true;
 
