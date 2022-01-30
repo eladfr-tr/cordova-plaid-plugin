@@ -17,6 +17,8 @@ import com.plaid.link.OpenPlaidLink;
 import com.plaid.link.Plaid;
 import com.plaid.link.PlaidHandler;
 import com.plaid.link.configuration.LinkTokenConfiguration;
+import com.plaid.link.result.LinkError;
+import com.plaid.link.result.LinkErrorCode;
 import com.plaid.link.result.LinkExit;
 import com.plaid.link.result.LinkResultHandler;
 import com.plaid.link.result.LinkSuccess;
@@ -46,13 +48,25 @@ public class PlaidWidget extends CordovaPlugin {
                     e.printStackTrace();
                     Log.d("plaid cordova plugin", "fail to parse widget's response", e);
                 }
-
-
                 return Unit.INSTANCE;
             },
             linkExit -> {
                 /* handle LinkExit */
-                _callbackContext.success("hello linkexit");
+                try {
+                    JSONObject result = new JSONObject();
+                    result.put("isAccountLinked", false);
+                    LinkError error = linkExit.getError();
+                    if (error != null) {
+                        String errorCode = error.getErrorCode().toString();
+                        String errorMessage = error.getErrorMessage();
+                        result.put("errorCode", errorCode);
+                        result.put("errorMessage", errorMessage);
+                    }
+                    _callbackContext.success(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("plaid cordova plugin", "fail to parse widget's response", e);
+                }
                 return Unit.INSTANCE;
             }
     );
