@@ -74,7 +74,7 @@ public class PlaidWidget extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
         _callbackContext = callbackContext;
-        if (action.equals("greet")) {
+        if (action.equals("open")) {
 
             String name = data.getString(0);
             String message = "Hello, " + name;

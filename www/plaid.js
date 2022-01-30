@@ -1,7 +1,20 @@
 /*global cordova, module*/
 
 module.exports = {
-    greet: function (name, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "PlaidWidget", "greet", [name]);
+    open: function (name) {
+        console.log("Plaid Cordova - open plaid widget cordova plugin");
+        return new Promise(function (resolve,reject) {
+            cordova.exec(
+                function successCallback (response) {
+                    console.log("Plaid Cordova - success callback response",response);
+                    resolve(response)
+                },
+                function errorCallback (response) {
+                    console.log("Plaid Cordova - Error callback response",response);
+                    reject(response);
+
+                }
+                , "PlaidWidget", "open", [name]);
+        });
     }
 };
