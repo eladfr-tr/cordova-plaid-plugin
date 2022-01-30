@@ -8,6 +8,7 @@ import android.util.Log;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
@@ -23,14 +24,30 @@ import com.plaid.link.result.LinkSuccess;
 import kotlin.Unit;
 
 
+
 public class PlaidWidget extends CordovaPlugin {
 
     public CallbackContext _callbackContext;
 
     private LinkResultHandler linkResultHandler = new LinkResultHandler(
             linkSuccess -> {
+                linkSuccess.getPublicToken();
                 /* handle LinkSuccess */
-                _callbackContext.success("hello LinkSuccess");
+                JSONObject result = new JSONObject();
+                try {
+                result.put("isAccountLinked",true);
+                String accountId = linkSuccess.getMetadata().getAccounts().get(0).getId();
+                result.put("accountId", accountId);
+                result.put("publicToken", linkSuccess.getPublicToken());
+
+                _callbackContext.success(result);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("plaid cordova plugin", "fail to parse widget's response", e);
+                }
+
+
                 return Unit.INSTANCE;
             },
             linkExit -> {
